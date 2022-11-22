@@ -22,8 +22,8 @@ namespace MyProject.Mock
 
 
 
-            Roles.Add(new Role { Id = 1, Name = "admin", Description = "admin with full access" });
-            Roles.Add(new Role { Id = 2, Name = "student", Description = "student with limited access" });
+            Roles.Add(new Role { Id = 1, Name = "Rivky", Description = "admin with full access" });
+            Roles.Add(new Role { Id = 2, Name = "Yael", Description = "student with limited access" });
 
             Permissions.Add(new Permission { Id = 1, Name = "ViewAllTests" });
             Permissions.Add(new Permission { Id = 2, Name = "UploadTest" });
