@@ -19,14 +19,20 @@ namespace MyProject.Repositories.Repositories
 
         public List<Claim> GetAll()
         {
-            return _context.Claims;
+            return _context.Claims.ToList();
         }
 
         public Claim GetById(int id)
         {
-            return _context.Claims.Find(c => c.Id == id);
+            return _context.Claims.Find(id);
         }
 
+        public async Task<Claim> AddAsync(int id, int roleId, int permissionId, EPolicy policy)
+        {
+            Claim claim1 = Add(id,roleId,permissionId,policy);
+            await _context.SaveChangesAsync();
+            return claim1;
+        }
         public Claim Add(int id, int roleId, int permissionId, EPolicy policy)
         {
             Claim c = new Claim();
@@ -37,20 +43,29 @@ namespace MyProject.Repositories.Repositories
             _context.Claims.Add(c);
             return c;
         }
-
+        public async Task<Claim> UpdateAsync(Claim claim)
+        {
+            Claim claim1 = Update(claim);
+            await _context.SaveChangesAsync();
+            return claim1;
+        }
         public Claim Update(Claim claim)
         {
-            var c = _context.Claims.Find(c => c.Id == claim.Id);
+            var c = _context.Claims.Find(claim.Id);
             c.Id = claim.Id;
             c.PermissionId = claim.PermissionId;
             c.Policy = claim.Policy;
             c.RoleId = claim.RoleId;
             return c;
         }
-
+        public async Task DeleteAsync(int id)
+        {
+            Delete(id);
+           await _context.SaveChangesAsync();
+        }
         public void Delete(int id)
         {
-            _context.Claims.Remove(_context.Claims.Find(c => c.Id == id));
+            _context.Claims.Remove(_context.Claims.Find(id));
         }
 
     }
